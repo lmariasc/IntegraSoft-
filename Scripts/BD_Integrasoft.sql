@@ -23,11 +23,13 @@ PRIMARY KEY (id_caso_prueba)
 );
 
 CREATE TABLE IF NOT  EXISTS datosEntrada(
-id_datos_entrada BIGINT NOT NULL, 
+id_dato_entrada BIGINT NOT NULL AUTO_INCREMENT,    
+id_caso_prueba BIGINT NOT NULL, 
 campo VARCHAR (30) NOT NULL,
 valor VARCHAR (30) NOT NULL,
 tipo_escenario VARCHAR (30) NOT NULL,
 respuesta_aplicacion VARCHAR  (1000) NOT NULL,
 coincide VARCHAR (10) NOT NULL,
-respuesta_sistema VARCHAR (1000) NOT NULL
+respuesta_sistema VARCHAR (1000) NOT NULL,
+PRIMARY KEY (id_dato_entrada)
 );

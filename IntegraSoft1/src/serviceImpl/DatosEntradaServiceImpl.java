@@ -19,10 +19,11 @@ import java.util.logging.Logger;
  */
 public class DatosEntradaServiceImpl {
     private static final String SQL_SELECT = "SELECT * FROM datosEntrada";
-    private static final String SQL_UPDATE = "UPDATE datosEntrada SET campo=?,  valor=?, tipo_escenario=?, respuesta_aplicacion=?, coincide=?, respuesta_sistema=?";
-    private static final String SQL_DELETE = "DELETE FROM datosEntrada WHERE id_caso_prueba = ?";
-    private static String SQL_CONSULTA = "SELECT * FROM datosEntrada WHERE id_datos_entrada = ? id_caso_prueba = ?";
-    private static final String SQL_INSERT = "INSERT INTO datosEntrada (id_datos_entrada, campo, valor, tipo_escenario, respuesta_aplicacion, coincide, respuesta_sistema)"
+    private static final String SQL_UPDATE = "UPDATE datosEntrada SET campo=?, valor=?, tipo_escenario=?, respuesta_aplicacion=?, coincide=?, respuesta_sistema=?"
+            + " WHERE id_dato_entrada=?";
+    private static final String SQL_DELETE = "DELETE FROM datosEntrada WHERE id_dato_entrada = ?";
+    private static String SQL_CONSULTA = "SELECT * FROM datosEntrada WHERE id_dato_entrada = ?";
+    private static final String SQL_INSERT = "INSERT INTO datosEntrada (id_caso_prueba, campo, valor, tipo_escenario, respuesta_aplicacion, coincide, respuesta_sistema)"
             + " VALUES (?,?,?,?,?,?,?)";
     
     public void guardar(DatosEntrada datosEntrada) {
@@ -54,7 +55,36 @@ public class DatosEntradaServiceImpl {
         }
     }
     
-    public DatosEntrada encontrarDatosEntrada(Long idDatosEntrada, Long idCasoPrueba) {
+    public void actualizar(DatosEntrada datosEntrada) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int registros = 0;
+        try {
+            conn = new conexion().getConnection();
+            stmt = conn.prepareStatement(SQL_UPDATE);
+            stmt.setString(1, datosEntrada.getCampo());
+            stmt.setString(2, datosEntrada.getValor());
+            stmt.setString(3, datosEntrada.getTipoEscenario());
+            stmt.setString(4, datosEntrada.getRespuestaAplicacion());
+            stmt.setString(5, datosEntrada.getCoincide());
+            stmt.setString(6, datosEntrada.getRespuestaSistema());
+            stmt.setLong(7, datosEntrada.getIdDatosEntrada());
+            registros = stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        finally{
+            try {
+                close(stmt);
+                close(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
+        }
+    }
+    
+    public DatosEntrada encontrarDatosEntrada (Long idDatosEntrada) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -63,16 +93,16 @@ public class DatosEntradaServiceImpl {
             conn = new conexion().getConnection();
             stmt = conn.prepareStatement(SQL_CONSULTA);
             stmt.setLong(1, idDatosEntrada);
-            stmt.setLong(2, idCasoPrueba);
             rs = stmt.executeQuery();
             while (rs.next()) {
+                Long idDatoPrueba = rs.getLong("id_caso_prueba");
                 String campo = rs.getString("campo");
                 String valor = rs.getString("valor");
-                String TipoEscenario= rs.getString("tipo_escenario");
-                String respuestaaplicacion= rs.getString("respuesta_aplicacion");
-                String coincide = rs.getString("coincice");
-                String respuestasistema = rs.getString("respuesta_sistema");
-                datosEntrada = new DatosEntrada(campo, valor, TipoEscenario, respuestaaplicacion, coincide, respuestasistema);
+                String tipoEscenario = rs.getString("tipo_escenario");
+                String respuestaAplicacion = rs.getString("respuesta_aplicacion");
+                String coincide = rs.getString("coincide");
+                String respuestaSistema = rs.getString("respuesta_sistema");
+                datosEntrada = new DatosEntrada(idDatosEntrada, idDatoPrueba, campo, valor, tipoEscenario, respuestaAplicacion, coincide, respuestaSistema);
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -87,21 +117,23 @@ public class DatosEntradaServiceImpl {
         }
         return datosEntrada;
     }
-    
    
-    public List<DatosEntrada> listarDatosEntrada() {
+    public List<DatosEntrada> listarDatosEntrada(Long idDatosPrueba) {
             Connection conn;
             PreparedStatement stmt;
             ResultSet rs;
             List<DatosEntrada> listaUsuario = new ArrayList<>();
+            SQL_CONSULTA = "SELECT * FROM datosEntrada where id_caso_prueba = ?";
         try {
              conn= new conexion().getConnection();
-            stmt = conn.prepareStatement(SQL_SELECT);
+            stmt = conn.prepareStatement(SQL_CONSULTA);
+            stmt.setLong(1,idDatosPrueba);
             rs = stmt.executeQuery();
             
             while(rs.next()){   
             DatosEntrada datosEntrada = new DatosEntrada();
-            
+                datosEntrada.setIdDatosEntrada(rs.getLong("id_dato_entrada"));
+                datosEntrada.setIdDatosPrueba(rs.getLong("id_caso_prueba"));
                 datosEntrada.setCampo(rs.getString("campo"));
                 datosEntrada.setValor(rs.getString("valor"));
                 datosEntrada.setTipoEscenario(rs.getString("tipo_escenario"));
@@ -115,6 +147,29 @@ public class DatosEntradaServiceImpl {
             Logger.getLogger(DatosEntradaServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listaUsuario;
+    }
+
+    public void eliminar(Long datosEntrada) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int FilaSelec = 0;
+        try {
+            conn = new conexion().getConnection();
+            stmt = conn.prepareStatement(SQL_DELETE);
+            stmt.setLong  (1, datosEntrada);
+            FilaSelec = stmt.executeUpdate();
+            System.out.println("Registro eliminado");
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        finally{
+            try {
+                close(stmt);
+                close(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
+        }
     }
 
 

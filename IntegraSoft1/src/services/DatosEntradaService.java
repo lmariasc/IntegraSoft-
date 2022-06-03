@@ -16,7 +16,7 @@ public interface DatosEntradaService {
     
     public List<DatosEntrada> listarDatosEntrada();
     
-    public DatosEntrada encontrarDatosEntrada (Long idDatosEntrada, Long idCasoPrueba);
+    public DatosEntrada encontrarDatosEntrada (Long idDatosPrueba);
     
     public void actualizar (DatosEntrada datosEntrada);
     

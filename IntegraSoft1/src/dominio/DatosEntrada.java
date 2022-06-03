@@ -6,6 +6,7 @@ package dominio;
  * @author Integrasoft
  */
 public class DatosEntrada {
+    private Long idDatosEntrada;
     private Long idDatosPrueba;
     private String campo;
     private String valor;
@@ -26,7 +27,8 @@ public class DatosEntrada {
         this.respuestaSistema = respuestaSistema;
     }
 
-    public DatosEntrada(Long idDatosPrueba, String campo, String valor, String tipoEscenario, String respuestaAplicacion, String coincide, String respuestaSistema) {
+    public DatosEntrada(Long idDatosEntrada,Long idDatosPrueba, String campo, String valor, String tipoEscenario, String respuestaAplicacion, String coincide, String respuestaSistema) {
+        this.idDatosEntrada = idDatosEntrada;
         this.idDatosPrueba = idDatosPrueba;
         this.campo = campo;
         this.valor = valor;
@@ -36,6 +38,16 @@ public class DatosEntrada {
         this.respuestaSistema = respuestaSistema;
     }
 
+    public DatosEntrada(Long idDatosPrueba, String campo, String valor, String tipoEscenario, String respuestaAplicacion, String coincide, String respuestaSistema) {
+        this.idDatosPrueba = idDatosPrueba;
+        this.campo = campo;
+        this.valor = valor;
+        this.tipoEscenario = tipoEscenario;
+        this.respuestaAplicacion = respuestaAplicacion;
+        this.coincide = coincide;
+        this.respuestaSistema = respuestaSistema;
+    }
+    
     public Long getIdDatosPrueba() {
         return idDatosPrueba;
     }
@@ -52,6 +64,16 @@ public class DatosEntrada {
         this.campo = campo;
     }
 
+    public Long getIdDatosEntrada() {
+        return idDatosEntrada;
+    }
+
+    public void setIdDatosEntrada(Long idDatosEntrada) {
+        this.idDatosEntrada = idDatosEntrada;
+    }
+
+    
+    
     public String getValor() {
         return valor;
     }

@@ -18,14 +18,28 @@ import serviceImpl.DatosEntradaServiceImpl;
  *
  * @author Asus
  */
-public class RegistrarCasodePrueba extends javax.swing.JFrame {
+public class ConsultaryActualizarCasoPrueba extends javax.swing.JFrame {
+
 
         DefaultTableModel modelo;
         DatosEntrada datosEncontrados;
+        CasoPrueba casoPruebaEncontrado;
         Long idDatosEntrada;
+        Long idCasoPrueba;
+       
   
-    public RegistrarCasodePrueba() {
+    public ConsultaryActualizarCasoPrueba() {
         initComponents();
+        camposBloqueados();
+        EditarPrueba.setEnabled(false);
+        GuardarCambios.setEnabled(false);
+        limpiar.setEnabled(false);
+        salir.setEnabled(false);
+        Agregar.setEnabled(false);
+        Editar.setEnabled(false);
+        GuardarDatosE.setEnabled(false);
+        Eliminar.setEnabled(false);
+        EliminarPrueba.setEnabled(false);
         
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -40,7 +54,6 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
         modelo.addColumn("Coincide");
         modelo.addColumn("Respuesta del Sistema");
     }
-
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -66,7 +79,7 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
         versionEjecucion = new javax.swing.JTextField();
         fechaEjecucion = new javax.swing.JTextField();
         casoUso = new javax.swing.JTextField();
-        guardar = new javax.swing.JButton();
+        GuardarCambios = new javax.swing.JButton();
         limpiar = new javax.swing.JButton();
         salir = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -130,6 +143,9 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
         jSeparator12 = new javax.swing.JSeparator();
         jSeparator13 = new javax.swing.JSeparator();
         Eliminar = new javax.swing.JButton();
+        ConsultarPrueba = new javax.swing.JButton();
+        EditarPrueba = new javax.swing.JButton();
+        EliminarPrueba = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
         jPanel2.setBackground(new java.awt.Color(30, 41, 57));
@@ -184,7 +200,7 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Myanmar Text", 1, 26)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("REGISTRAR CASO DE PRUEBA");
+        jLabel1.setText("CONSULTAR Y ACTUALIZAR CASO DE PRUEBA");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Icono IntegraSoft.png"))); // NOI18N
 
@@ -225,11 +241,11 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
 
         casoUso.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
-        guardar.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
-        guardar.setText("Guardar");
-        guardar.addActionListener(new java.awt.event.ActionListener() {
+        GuardarCambios.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        GuardarCambios.setText("Actualizar");
+        GuardarCambios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarActionPerformed(evt);
+                GuardarCambiosActionPerformed(evt);
             }
         });
 
@@ -321,7 +337,7 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
 
         Valor.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
 
-        coincide.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        coincide.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
         coincide.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Si", "No" }));
 
         jSeparator10.setForeground(new java.awt.Color(37, 196, 164));
@@ -450,7 +466,7 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
         });
 
         postCondiciones.setColumns(20);
-        postCondiciones.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        postCondiciones.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         postCondiciones.setRows(5);
         jScrollPane8.setViewportView(postCondiciones);
 
@@ -476,6 +492,30 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
             }
         });
 
+        ConsultarPrueba.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        ConsultarPrueba.setText("Consultar");
+        ConsultarPrueba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ConsultarPruebaActionPerformed(evt);
+            }
+        });
+
+        EditarPrueba.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        EditarPrueba.setText("Editar");
+        EditarPrueba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarPruebaActionPerformed(evt);
+            }
+        });
+
+        EliminarPrueba.setFont(new java.awt.Font("Tahoma", 1, 15)); // NOI18N
+        EliminarPrueba.setText("Eliminar");
+        EliminarPrueba.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarPruebaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -490,29 +530,23 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jSeparator12, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jSeparator9)
                         .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator8)
-                        .addComponent(jSeparator7, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE)
-                        .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 929, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addGap(459, 459, 459)
                             .addComponent(jLabel25)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(veredicto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(veredicto, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addGap(58, 58, 58)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGap(232, 232, 232)
-                                    .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(245, 245, 245)
+                                    .addComponent(limpiar)
                                     .addGap(72, 72, 72)
-                                    .addComponent(guardar)
+                                    .addComponent(GuardarCambios)
                                     .addGap(85, 85, 85)
                                     .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -544,31 +578,6 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
                                             .addComponent(firma, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(fecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                            .addGap(67, 67, 67)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jLabel12))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(CasoPruebaN, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                                        .addComponent(casoUso)
-                                        .addComponent(moduloSistema))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel11)
-                                        .addComponent(jLabel10))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(versionEjecucion, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
-                                        .addComponent(fechaEjecucion)))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 521, Short.MAX_VALUE))))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                             .addGap(66, 66, 66)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
@@ -589,15 +598,13 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
                                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 607, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(GuardarDatosE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(Agregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(Eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(Editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel21)
-                                    .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(Agregar, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE)
+                                        .addComponent(GuardarDatosE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(Editar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(Eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)))
+                                .addComponent(jLabel21)
                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -605,23 +612,64 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(coincide, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(coincide, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addComponent(jLabel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel17)
-                            .addGap(18, 18, 18)
-                            .addComponent(Campo, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(Campo, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel19)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(Valor, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(tipoEscenario, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 929, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(tipoEscenario, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel12))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(CasoPruebaN, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                                    .addComponent(casoUso)
+                                    .addComponent(moduloSistema))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel11)
+                                            .addComponent(jLabel10))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(versionEjecucion, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                                            .addComponent(fechaEjecucion)))
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(23, 23, 23)
+                                        .addComponent(ConsultarPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(EditarPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(EliminarPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(40, 40, 40))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 569, Short.MAX_VALUE)))))
+                .addGap(0, 10, Short.MAX_VALUE))
+            .addComponent(jSeparator4)
+            .addComponent(jSeparator7)
+            .addComponent(jSeparator3)
+            .addComponent(jSeparator8)
+            .addComponent(jSeparator9)
+            .addComponent(jSeparator12)
+            .addComponent(jSeparator13)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -629,49 +677,47 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(19, 19, 19)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CasoPruebaN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ConsultarPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EditarPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(EliminarPrueba, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(casoUso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(versionEjecucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(CasoPruebaN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(moduloSistema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel10)
+                        .addComponent(fechaEjecucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addGap(36, 36, 36))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(casoUso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(moduloSistema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(fechaEjecucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel9)))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)))
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
+                        .addGap(16, 16, 16)
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
+                        .addGap(40, 40, 40)
                         .addComponent(jLabel15)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -706,7 +752,7 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
                         .addComponent(jLabel22))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel23)
                             .addComponent(coincide, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -731,8 +777,8 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 19, Short.MAX_VALUE)
-                .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -757,13 +803,17 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel28)
-                    .addComponent(probador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel29)
-                    .addComponent(firma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel28)
+                            .addComponent(probador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel29)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addComponent(firma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -772,12 +822,12 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(GuardarCambios, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel30)
                         .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         jScrollPane2.setViewportView(jPanel3);
@@ -836,11 +886,11 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
         this.dispose ();
     }//GEN-LAST:event_salirActionPerformed
 
-    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        guardarcasoPrueba();
+    private void GuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarCambiosActionPerformed
+        //guardarcasoPrueba();
         validarCampos();
-     
-    }//GEN-LAST:event_guardarActionPerformed
+        actualizarCasoPrueba(idCasoPrueba);
+    }//GEN-LAST:event_GuardarCambiosActionPerformed
 
     private void GuardarDatosEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarDatosEActionPerformed
         
@@ -910,21 +960,19 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
     }//GEN-LAST:event_limpiarActionPerformed
 
     private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
-
         
         int FilaSelec = Tabla.getSelectedRow();
         
         if (FilaSelec >= 0)
         {
-        idDatosEntrada = Long.parseLong(Tabla.getValueAt(FilaSelec,1).toString());
-        Campo.setText(Tabla.getValueAt(FilaSelec,2).toString());
-        Valor.setText(Tabla.getValueAt(FilaSelec,3).toString());
-        tipoEscenario.setSelectedItem(Tabla.getValueAt(FilaSelec,4).toString());
-        respuestaAplicacion.setText(Tabla.getValueAt(FilaSelec,5).toString());
-        coincide.setSelectedItem(Tabla.getValueAt(FilaSelec,6).toString());
-        respuestaSistema.setText(Tabla.getValueAt(FilaSelec,7).toString());
+        
+        Campo.setText(Tabla.getValueAt(FilaSelec,0).toString());
+        Valor.setText(Tabla.getValueAt(FilaSelec,1).toString());
+        tipoEscenario.setSelectedItem(Tabla.getValueAt(FilaSelec,2).toString());
+        respuestaAplicacion.setText(Tabla.getValueAt(FilaSelec,3).toString());
+        coincide.setSelectedItem(Tabla.getValueAt(FilaSelec,4).toString());
+        respuestaSistema.setText(Tabla.getValueAt(FilaSelec,5).toString());
         modelo.removeRow(FilaSelec);
-        GuardarDatosE.setText("Actualizar");
         }
         else{
            JOptionPane.showMessageDialog(this, "fila no seleccionada");
@@ -954,91 +1002,33 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jlbCasoPruebaNKeyReleased
 
-    public void guardarcasoPrueba() {
-        CasoPruebaServiceImpl casoPruebaServicio = new CasoPruebaServiceImpl();
-
-        CasoPrueba casoPrueba = new CasoPrueba(Long.parseLong(CasoPruebaN.getText()), 
-                casoUso.getText(), 
-                moduloSistema.getText(), 
-                versionEjecucion.getText(), 
-                fechaEjecucion.getText(),
-                descripcion.getText(),
-                precondiciones.getText(),
-                pasosPrueba.getText(),
-                postCondiciones.getText(),
-                defectosDesviaciones.getText (),
-                veredicto.getSelectedItem().toString (),
-                observaciones.getText(),
-                probador.getText(),
-                nombre.getText(),
-                firma.getText(),
-                fecha.getText());
-        casoPruebaServicio.guardar(casoPrueba);
+    private void ConsultarPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConsultarPruebaActionPerformed
         
-    }
-    
-    
-     public void guardarDatosEntrada() {        
-       DatosEntradaServiceImpl datosEntradaServicio = new DatosEntradaServiceImpl();
-
-        DatosEntrada datosEntrada = new DatosEntrada(
-                Long.parseLong(jlbCasoPruebaN.getText()),
-                Campo.getText(),
-                Valor.getText(), 
-                tipoEscenario.getSelectedItem().toString(), 
-                respuestaAplicacion.getText(),
-                coincide.getSelectedItem().toString(),
-                respuestaSistema.getText());
-         datosEntradaServicio.guardar(datosEntrada);
-   }
-     
-     public boolean actualizarDatosEntrada(Long idCampo){
-        DatosEntradaServiceImpl datosEntradaServicio = new DatosEntradaServiceImpl();
-        boolean actualizacion = false;
-        try{
-        DatosEntrada datosEntrada = new DatosEntrada(
-                idDatosEntrada,
-                Long.parseLong(jlbCasoPruebaN.getText()),
-                Campo.getText(),
-                Valor.getText(), 
-                tipoEscenario.getSelectedItem().toString(), 
-                respuestaAplicacion.getText(),
-                coincide.getSelectedItem().toString(),
-                respuestaSistema.getText());
-         datosEntradaServicio.actualizar(datosEntrada);
-            JOptionPane.showMessageDialog(this, "Caso de prueba actualizado correctamente.","Actualización de Caso de Prueba",JOptionPane.INFORMATION_MESSAGE);
-            actualizacion =true;
-        }catch(Exception e){
-            e.printStackTrace(System.out);
-        }
-        return actualizacion;
-        }
-     
-     
-    private void cargarDatosEntrada() {
+        consultarCasoPrueba ();
+        cargarDatosEntrada();
+        EditarPrueba.setEnabled(true);
+        camposBloqueados();
+        //cargarDatosEntrada();
         
-        DatosEntradaServiceImpl datosEntradaServicio = new DatosEntradaServiceImpl();
+    }//GEN-LAST:event_ConsultarPruebaActionPerformed
 
+    private void EditarPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarPruebaActionPerformed
+        GuardarCambios.setEnabled(true);
+        limpiar.setEnabled(true);
+        salir.setEnabled(true);
+        Agregar.setEnabled(true);
+        Editar.setEnabled(true);
+        GuardarDatosE.setEnabled(true);
+        Eliminar.setEnabled(true);
+        EliminarPrueba.setEnabled(true);
+        camposHabilitados();
+        
+    }//GEN-LAST:event_EditarPruebaActionPerformed
 
-        modelo = (DefaultTableModel) Tabla.getModel();
-
-        List<DatosEntrada> datosEntrada = datosEntradaServicio.listarDatosEntrada(Long.parseLong(CasoPruebaN.getText()));
-        int tamanoLista = datosEntrada.size(); //Tamaño de filas
-        modelo.setRowCount(tamanoLista);//Se establecen la cantidad de filas
-
-        for(int posicionFila = 0; posicionFila<tamanoLista;posicionFila++){
-            Tabla.setValueAt(datosEntrada.get(posicionFila).getIdDatosPrueba(),posicionFila , 0);
-            Tabla.setValueAt(datosEntrada.get(posicionFila).getIdDatosEntrada(),posicionFila , 1);
-            Tabla.setValueAt(datosEntrada.get(posicionFila).getCampo(),posicionFila , 2);
-            Tabla.setValueAt(datosEntrada.get(posicionFila).getValor(),posicionFila , 3);
-            Tabla.setValueAt(datosEntrada.get(posicionFila).getTipoEscenario(),posicionFila , 4);
-            Tabla.setValueAt(datosEntrada.get(posicionFila).getRespuestaAplicacion(),posicionFila , 5);
-            Tabla.setValueAt(datosEntrada.get(posicionFila).getCoincide(),posicionFila , 6);
-            Tabla.setValueAt(datosEntrada.get(posicionFila).getRespuestaSistema(),posicionFila , 7);
-        }
-                
-    }
-    
+    private void EliminarPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarPruebaActionPerformed
+        eliminarCasoPrueba();
+    }//GEN-LAST:event_EliminarPruebaActionPerformed
+       
     public boolean validarCampos() {
             boolean camposValidados = true;
             if (CasoPruebaN.getText().equals("")){
@@ -1107,6 +1097,206 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
         public void imprimirCampoVacio(String campo){
             JOptionPane.showMessageDialog(null, "El campo "+campo+ " se encuentra vacío. Por favor, validar campo.", "Campo vacío", JOptionPane.ERROR_MESSAGE);
             }
+    
+    public void camposBloqueados() {
+        casoUso.setEditable(false);
+        moduloSistema.setEditable(false);
+        fechaEjecucion.setEditable(false);
+        descripcion.setEditable(false);
+        precondiciones.setEditable(false);
+        pasosPrueba.setEditable(false);
+        postCondiciones.setEditable(false);
+        defectosDesviaciones.setEditable(false);
+        veredicto.setEnabled(false);
+        observaciones.setEditable(false);
+        probador.setEditable(false);
+        nombre.setEditable(false);
+        firma.setEditable(false);
+        fecha.setEditable(false);
+        
+        jlbCasoPruebaN.setEnabled(false);
+        Campo.setEditable(false);
+        Valor.setEditable(false);
+        tipoEscenario.setEnabled(false);
+        respuestaAplicacion.setEditable(false);
+        coincide.setEnabled(false);
+        respuestaSistema.setEditable(false);
+    }
+        
+        public void camposHabilitados() {
+        casoUso.setEditable(true);
+        moduloSistema.setEditable(true);
+        fechaEjecucion.setEditable(true);
+        descripcion.setEditable(true);
+        precondiciones.setEditable(true);
+        pasosPrueba.setEditable(true);
+        postCondiciones.setEditable(true);
+        defectosDesviaciones.setEditable(true);
+        veredicto.setEnabled(true);
+        observaciones.setEditable(true);
+        probador.setEditable(true);
+        nombre.setEditable(true);
+        firma.setEditable(true);
+        fecha.setEditable(true);
+        
+        jlbCasoPruebaN.setEnabled(true);
+        Campo.setEditable(true);
+        Valor.setEditable(true);
+        tipoEscenario.setEnabled(true);
+        respuestaAplicacion.setEditable(true);
+        coincide.setEnabled(true);
+        respuestaSistema.setEditable(true);
+    }
+    
+    public void guardarDatosEntrada() {        
+       DatosEntradaServiceImpl datosEntradaServicio = new DatosEntradaServiceImpl();
+
+        DatosEntrada datosEntrada = new DatosEntrada(
+                Long.parseLong(jlbCasoPruebaN.getText()),
+                Campo.getText(),
+                Valor.getText(), 
+                tipoEscenario.getSelectedItem().toString(), 
+                respuestaAplicacion.getText(),
+                coincide.getSelectedItem().toString(),
+                respuestaSistema.getText());
+         datosEntradaServicio.guardar(datosEntrada);
+   }
+    
+    public boolean actualizarDatosEntrada(Long idCampo){
+        DatosEntradaServiceImpl datosEntradaServicio = new DatosEntradaServiceImpl();
+        boolean actualizacion = false;
+        try{
+        DatosEntrada datosEntrada = new DatosEntrada(
+                idDatosEntrada,
+                Long.parseLong(jlbCasoPruebaN.getText()),
+                Campo.getText(),
+                Valor.getText(), 
+                tipoEscenario.getSelectedItem().toString(), 
+                respuestaAplicacion.getText(),
+                coincide.getSelectedItem().toString(),
+                respuestaSistema.getText());
+         datosEntradaServicio.actualizar(datosEntrada);
+            JOptionPane.showMessageDialog(this, "Campo actualizado correctamente.","Actualización de Caso de Prueba",JOptionPane.INFORMATION_MESSAGE);
+            actualizacion =true;
+        }catch(Exception e){
+            e.printStackTrace(System.out);
+        }
+        return actualizacion;
+        }
+    
+    private void cargarDatosEntrada() {
+        
+        DatosEntradaServiceImpl datosEntradaServicio = new DatosEntradaServiceImpl();
+
+
+        modelo = (DefaultTableModel) Tabla.getModel();
+
+        List<DatosEntrada> datosEntrada = datosEntradaServicio.listarDatosEntrada(Long.parseLong(CasoPruebaN.getText()));
+        int tamanoLista = datosEntrada.size(); //Tamaño de filas
+        modelo.setRowCount(tamanoLista);//Se establecen la cantidad de filas
+
+        for(int posicionFila = 0; posicionFila<tamanoLista;posicionFila++){
+            Tabla.setValueAt(datosEntrada.get(posicionFila).getIdDatosPrueba(),posicionFila , 0);
+            Tabla.setValueAt(datosEntrada.get(posicionFila).getIdDatosEntrada(),posicionFila , 1);
+            Tabla.setValueAt(datosEntrada.get(posicionFila).getCampo(),posicionFila , 2);
+            Tabla.setValueAt(datosEntrada.get(posicionFila).getValor(),posicionFila , 3);
+            Tabla.setValueAt(datosEntrada.get(posicionFila).getTipoEscenario(),posicionFila , 4);
+            Tabla.setValueAt(datosEntrada.get(posicionFila).getRespuestaAplicacion(),posicionFila , 5);
+            Tabla.setValueAt(datosEntrada.get(posicionFila).getCoincide(),posicionFila , 6);
+            Tabla.setValueAt(datosEntrada.get(posicionFila).getRespuestaSistema(),posicionFila , 7);
+        }
+                
+    }
+    public void guardarcasoPrueba() {
+        CasoPruebaServiceImpl casoPruebaServicio = new CasoPruebaServiceImpl();
+
+        CasoPrueba casoPrueba = new CasoPrueba(Long.parseLong(CasoPruebaN.getText()), 
+                casoUso.getText(), 
+                moduloSistema.getText(), 
+                versionEjecucion.getText(), 
+                fechaEjecucion.getText(),
+                descripcion.getText(),
+                precondiciones.getText(),
+                pasosPrueba.getText(),
+                postCondiciones.getText(),
+                defectosDesviaciones.getText (),
+                veredicto.getSelectedItem().toString (),
+                observaciones.getText(),
+                probador.getText(),
+                nombre.getText(),
+                firma.getText(),
+                fecha.getText());
+        casoPruebaServicio.guardar(casoPrueba);
+    }
+    
+    public void consultarCasoPrueba (){
+        
+        CasoPruebaServiceImpl casoPruebaServicio = new CasoPruebaServiceImpl();
+         
+        this.casoPruebaEncontrado = casoPruebaServicio.encontrarCasoPrueba(Long.parseLong(CasoPruebaN.getText()), versionEjecucion.getText());          
+          
+          casoUso.setText(casoPruebaEncontrado.getCasoUso());
+          moduloSistema.setText(casoPruebaEncontrado.getModuloSistema());
+          fechaEjecucion.setText(casoPruebaEncontrado.getFechaEjecucion());
+          descripcion.setText(casoPruebaEncontrado.getDescripcionCasoPrueba());
+          precondiciones.setText(casoPruebaEncontrado.getPreCondiciones());
+          pasosPrueba.setText(casoPruebaEncontrado.getPasosPrueba());
+          postCondiciones.setText(casoPruebaEncontrado.getPostCondiciones());
+          defectosDesviaciones.setText(casoPruebaEncontrado.getDefectosDesviaciones());
+          veredicto.setSelectedItem(casoPruebaEncontrado.getVeredicto().toString());
+          observaciones.setText(casoPruebaEncontrado.getObservaciones());
+          probador.setText(casoPruebaEncontrado.getProbador());
+          nombre.setText(casoPruebaEncontrado.getNombre());
+          firma.setText(casoPruebaEncontrado.getFirma());
+          fecha.setText(casoPruebaEncontrado.getFecha());
+          
+          JOptionPane.showMessageDialog(this, "Caso de prueba encontrado.","Consultar Caso de Prueba",JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+        public boolean actualizarCasoPrueba (Long idcasoprueba){
+            
+            CasoPruebaServiceImpl casoPruebaServicio = new CasoPruebaServiceImpl();
+            boolean actualizacion = false;
+        try{
+        CasoPrueba casoPrueba = new CasoPrueba(
+                Long.parseLong(CasoPruebaN.getText()),
+                casoUso.getText(), 
+                moduloSistema.getText(),  
+                fechaEjecucion.getText(),
+                descripcion.getText(),
+                precondiciones.getText(),
+                pasosPrueba.getText(),
+                postCondiciones.getText(),
+                defectosDesviaciones.getText (),
+                veredicto.getSelectedItem().toString (),
+                observaciones.getText(),
+                probador.getText(),
+                nombre.getText(),
+                firma.getText(),
+                fecha.getText());
+            casoPruebaServicio.actualizarCasoPrueba(casoPrueba);
+            JOptionPane.showMessageDialog(this, "Caso de prueba actualizado correctamente.","Actualización de Caso de Prueba",JOptionPane.INFORMATION_MESSAGE);
+            actualizacion =true;
+        }catch(Exception e){
+            e.printStackTrace(System.out);
+        }
+        return actualizacion;
+        }
+    
+    public void eliminarCasoPrueba() {
+        CasoPruebaServiceImpl casoPruebaServicio = new CasoPruebaServiceImpl();
+        CasoPrueba casoPruebaEliminar = new CasoPrueba();
+        casoPruebaEliminar.getIdCasoPrueba();
+        int opcion = JOptionPane.showConfirmDialog(null, "<html><strong>Â¿EstÃ¡ seguro que desea eliminar el vehÃ­culo del sistema de informaciÃ³n?</strong></html>", "Eliminar vehÃ­culo", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (opcion == 0) {
+            casoPruebaServicio.eliminar(casoPruebaEliminar);
+            JOptionPane.showMessageDialog(null, "<html><span style='color:DimGray'>VehÃ­culo eliminado correctamente.<strong> </strong></span> se encuentra por favor validar campo.</html>", "VehÃ­culo eliminado", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            CasoPruebaN.selectAll();
+            CasoPruebaN.requestFocus();
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -1124,21 +1314,23 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistrarCasodePrueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultaryActualizarCasoPrueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistrarCasodePrueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultaryActualizarCasoPrueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistrarCasodePrueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultaryActualizarCasoPrueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistrarCasodePrueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultaryActualizarCasoPrueba.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistrarCasodePrueba().setVisible(true);
+                new ConsultaryActualizarCasoPrueba().setVisible(true);
             }
         });
     }
@@ -1147,8 +1339,12 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
     private javax.swing.JButton Agregar;
     private javax.swing.JTextField Campo;
     private javax.swing.JTextField CasoPruebaN;
+    private javax.swing.JButton ConsultarPrueba;
     private javax.swing.JButton Editar;
+    private javax.swing.JButton EditarPrueba;
     private javax.swing.JButton Eliminar;
+    private javax.swing.JButton EliminarPrueba;
+    private javax.swing.JButton GuardarCambios;
     private javax.swing.JButton GuardarDatosE;
     private javax.swing.JTable Tabla;
     private javax.swing.JTextField Valor;
@@ -1159,7 +1355,6 @@ public class RegistrarCasodePrueba extends javax.swing.JFrame {
     private javax.swing.JTextField fecha;
     private javax.swing.JTextField fechaEjecucion;
     private javax.swing.JTextField firma;
-    private javax.swing.JButton guardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

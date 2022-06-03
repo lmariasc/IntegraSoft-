@@ -1,0 +1,10 @@
+﻿1;1001;Usuario;ADMIN;Correcto;El sistema deberá administrar la cuenta de los usuarios que requieran acceder a él.;si;El sistema deja correctamente administrar un usuario.
+2;1001;Contraseña ;Contraseña del usuario;Correcto;Sin error al diligenciar el campo.;si;El sistema no arroja ningún error en la prueba.
+3;1001;Usuario;ADMINISTRADOR;Incorrecto;Emitir mensaje evidenciar el campo como errado, limpiar el campo y posicionar el cursor en el mismo.;si;El sistema emite el mensaje de error del campo, al evidenciarlo errado
+4;1002;Modalidad;Modalidad correspondiente al torneo jugado;Correcto;Sin error en el campo;si;El sistema permite registrar correctamente la modalidad de juego del torneo.
+5;1002;Jugadores;Nombre, Edad, Numero de documento, Nacionalidad y sexo, de cada jugador.;Correcto;Sin error en el campo;si;El sistema permite registrar correctamente datos básicos de los jugadores
+6;1002;Premios;Cantidad de premios ganados;Correcto;Sin error en el campo;si;El sistema permite ingresar la cantidad de premios ganados
+7;1002;Lugares;Fecha, país, lugar y resultados obtenidos de cada partido jugado.;Correcto;Sin error en el campo;si;El sistema permite ingresar información básica de cada partido.
+8;1002;Guardar ;Se guarda la información diligenciada en la base de datos.;Correcto;Emitir mensaje evidenciar el campo como creación exitosa;si;El sistema emite el mensaje de error del campo, al evidenciarlo errado.
+9;1002;Guardar;Se guarda la información diligenciada en la base de datos.;Incorrecto;Emitir mensaje evidenciar el campo como error sobre la creación, limpiar el campo y posicionar el cursor en el mismo.;si;El sistema emite el mensaje de error del campo, al evidenciarlo errado.
+10;1003;Menú principal;Búsqueda de información realizada por el usuario;Correcto;Sin error en el campo;si;El sistema busca la información requerida de manera pertinente.

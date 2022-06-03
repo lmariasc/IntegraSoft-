@@ -27,10 +27,9 @@ public class CasoPrueba {
     public CasoPrueba() {
     }
 
-    public CasoPrueba(String casoUso, String moduloSistema, String versionEjecucion, String fechaEjecucion, String descripcionCasoPrueba, String preCondiciones, String pasosPrueba, String postCondiciones, String defectosDesviaciones, String veredicto, String observaciones, String probador, String nombre, String firma, String fecha) {
+    public CasoPrueba(String casoUso, String moduloSistema, String fechaEjecucion, String descripcionCasoPrueba, String preCondiciones, String pasosPrueba, String postCondiciones, String defectosDesviaciones, String veredicto, String observaciones, String probador, String nombre, String firma, String fecha) {
         this.casoUso = casoUso;
         this.moduloSistema = moduloSistema;
-        this.versionEjecucion = versionEjecucion;
         this.fechaEjecucion = fechaEjecucion;
         this.descripcionCasoPrueba = descripcionCasoPrueba;
         this.preCondiciones = preCondiciones;
@@ -45,6 +44,24 @@ public class CasoPrueba {
         this.fecha = fecha;
     }
 
+    public CasoPrueba(Long idCasoPrueba, String casoUso, String moduloSistema, String fechaEjecucion, String descripcionCasoPrueba, String preCondiciones, String pasosPrueba, String postCondiciones, String defectosDesviaciones, String veredicto, String observaciones, String probador, String nombre, String firma, String fecha) {
+        this.idCasoPrueba = idCasoPrueba;
+        this.casoUso = casoUso;
+        this.moduloSistema = moduloSistema;
+        this.fechaEjecucion = fechaEjecucion;
+        this.descripcionCasoPrueba = descripcionCasoPrueba;
+        this.preCondiciones = preCondiciones;
+        this.pasosPrueba = pasosPrueba;
+        this.postCondiciones = postCondiciones;
+        this.defectosDesviaciones = defectosDesviaciones;
+        this.veredicto = veredicto;
+        this.observaciones = observaciones;
+        this.probador = probador;
+        this.nombre = nombre;
+        this.firma = firma;
+        this.fecha = fecha;
+    }
+    
     public CasoPrueba(Long idCasoPrueba, String casoUso, String moduloSistema, String versionEjecucion, String fechaEjecucion, String descripcionCasoPrueba, String preCondiciones, String pasosPrueba, String postCondiciones, String defectosDesviaciones, String veredicto, String observaciones, String probador, String nombre, String firma, String fecha) {
         this.idCasoPrueba = idCasoPrueba;
         this.casoUso = casoUso;

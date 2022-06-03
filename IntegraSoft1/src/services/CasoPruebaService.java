@@ -17,7 +17,7 @@ public interface CasoPruebaService {
     
     public List<CasoPrueba> listarCasoPrueba();
     
-    public CasoPrueba encontrarCasoPrueba (Long idCasoPrueba, String tipoId);
+    public CasoPrueba encontrarCasoPrueba (Long idCasoPrueba, String versionEjecucion);
     
     public void actualizar (CasoPrueba casoPrueba);
     
